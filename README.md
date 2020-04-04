@@ -1,27 +1,26 @@
-# Ng9Issues
+Demonstrates an issue with TestBed when importing a Module from a library with a pipe that has a super class with a ngOnDestroy lifecycle method.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+To duplicate clone and run:
 
-## Development server
+```
+yarn
+ng build some-lib
+ng test
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The test will fail with:
+```
+Error: Directive SomePipe has no selector, please add it!
+    at verifySemanticsOfNgModuleDef (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:39047:1)
+    at http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:39010:1
+    at <Jasmine>
+    at verifySemanticsOfNgModuleDef (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:39004:1)
+    at Function.get (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js:38956:1)
+    at R3TestBedCompiler.applyProviderOverridesToModule (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/testing.js:2087:44)
+    at R3TestBedCompiler.compileTestModule (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/testing.js:2386:1)
+    at R3TestBedCompiler.finalize (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/testing.js:1880:1)
+    at TestBedRender3.get testModuleRef [as testModuleRef] (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/testing.js:3253:1)
+    at TestBedRender3.inject (http://localhost:9877/_karma_webpack_/node_modules/@angular/core/__ivy_ngcc__/fesm2015/testing.js:3110:1)
+```
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+This issue will not occur when the module is part of the same app as the test, it seems to be related to being part of a library project.
